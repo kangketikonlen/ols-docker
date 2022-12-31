@@ -1,0 +1,39 @@
+version: '3'
+services:
+  mysql:
+    image: mariadb:10.5.9
+    logging:
+      driver: none
+    command: --max_allowed_packet=256M
+    volumes:
+      - "./data:/var/lib/mysql:delegated"
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+  litespeed:
+    image: litespeedtech/openlitespeed:1.7.16-lsphp74
+    logging:
+      driver: none
+    env_file:
+      - .env
+    volumes:
+      - ./lsws/conf:/usr/local/lsws/conf
+      - ./lsws/admin-conf:/usr/local/lsws/admin/conf
+      - ./sites:/var/www/vhosts/
+      - ./logs:/usr/local/lsws/logs/
+    networks:
+      - default
+    ports:
+      - 8080:80
+      - 7080:7080
+    environment:
+      TZ: ${TimeZone}
+    restart: always
+networks:
+  default:
+    driver: bridge
