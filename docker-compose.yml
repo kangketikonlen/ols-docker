@@ -1,24 +1,37 @@
 version: '3'
 services:
   mysql:
+    container_name: database-mariadb
     image: mariadb:10.5.9
-    logging:
-      driver: none
     command: --max_allowed_packet=256M
     volumes:
-      - "./data:/var/lib/mysql:delegated"
+      - "./data/mariadb:/var/lib/mysql:delegated"
     networks:
       - default
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     restart: always
+  mongodb:
+    container_name: database-mongodb
+    image: mongo:6.0.3
+    networks:
+      - default
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    restart: always
   litespeed:
+    container_name: webserver-openlitespeed
+    platform: linux/amd64
     image: litespeedtech/openlitespeed:1.7.16-lsphp74
-    logging:
-      driver: none
     env_file:
       - .env
     volumes:
@@ -36,4 +49,5 @@ services:
     restart: always
 networks:
   default:
+    name: webserver-network
     driver: bridge
