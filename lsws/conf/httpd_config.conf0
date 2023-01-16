@@ -216,7 +216,7 @@ vhTemplate docker {
   note                    docker
 
   member localhost {
-    vhDomain              localhost, *
+    vhDomain              localhost,*
   }
 }
 

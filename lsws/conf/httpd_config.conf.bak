@@ -210,19 +210,10 @@ listener HTTP {
   secure                  0
 }
 
-vhTemplate centralConfigLog {
-  templateFile            conf/templates/ccl.conf
-  listeners               Default
-}
-
 vhTemplate docker {
   templateFile            conf/templates/docker.conf
   listeners               HTTP
   note                    docker
-
-  member localhost {
-    vhDomain              localhost, *
-  }
 }
 
 

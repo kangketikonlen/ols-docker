@@ -1,4 +1,4 @@
-vhRoot                    /var/www/vhosts/$VH_NAME/
+vhRoot                    /var/www/vhost/$VH_NAME/
 configFile                $SERVER_ROOT/conf/vhosts/$VH_NAME/vhconf.conf
 allowSymbolLink           1
 enableScript              1
@@ -25,6 +25,10 @@ virtualHostConfig  {
     indexFiles            index.html, index.php
     autoIndex             0
     autoIndexURI          /_autoindex/default.php
+  }
+
+  scripthandler  {
+    add                   lsapi:lsphp lsphp74
   }
 
   expires  {
