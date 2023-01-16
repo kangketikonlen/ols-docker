@@ -1,6 +1,8 @@
 .env
 .DS_Store
 .gitignore
+*.txt
 lsws/admin-conf/quic-cloud-ips
 lsws/conf/templates/ccl.conf.txt
 lsws/conf/templates/rails.conf.txt
+lsws/conf/templates/docker.conf.txt
