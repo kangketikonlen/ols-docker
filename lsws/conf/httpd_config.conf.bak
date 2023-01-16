@@ -215,14 +215,9 @@ vhTemplate centralConfigLog {
   listeners               Default
 }
 
-vhTemplate EasyRailsWithSuEXEC {
-  templateFile            conf/templates/rails.conf
-  listeners               Default
-}
-
 vhTemplate docker {
   templateFile            conf/templates/docker.conf
-  listeners               HTTP, HTTPS
+  listeners               HTTP
   note                    docker
 
   member localhost {

@@ -218,16 +218,6 @@ listener HTTP {
     secure 0
 }
 
-vhtemplate centralConfigLog {
-    templatefile conf/templates/ccl.conf
-    listeners Default
-}
-
-vhtemplate EasyRailsWithSuEXEC {
-    templatefile conf/templates/rails.conf
-    listeners Default
-}
-
 vhtemplate docker {
     templatefile conf/templates/docker.conf
     listeners HTTP
